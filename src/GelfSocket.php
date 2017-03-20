@@ -492,4 +492,46 @@ class GelfSocket extends \Psr\Log\AbstractLogger
 
         return $this;
     }
+
+    /**
+     * Log an exception
+     *
+     * ```php
+     * try {
+     *   // do something that throws
+     * } catch (\Exception $e) {
+     *   $logger->logException($e);
+     * }
+     * ```
+     *
+     * The full log message contains of the exception message and the stack trace as string
+     *
+     * The log fields contains of:
+     * - `class` The class name of the exception, whereas `\` is replaced by dots and the keyword `Exception` at the end is replaced by `~`
+     * - `code` The code of the exception
+     * - `file` The filename
+     * - `line` The line number
+     *
+     * @param string $level
+     * @param \Exception $exception
+     * @param array $context Additional params
+     * @return self
+     */
+    public function logException(string $level, \Exception $exception, array $context = [])
+    {
+        $class = get_class($exception);
+        Str::replace($class, '/(?<=\w)Exception/', '~');
+        Str::replace($class, '/\\\\/', '.');
+
+        $context['class'] = $class;
+        $context['code'] = $exception->getCode();
+        $context['file'] = $exception->getFile();
+        $context['line'] = $exception->getLine();
+
+        $full_message = $exception->getMessage() . "\n" . $exception->getTraceAsString();
+
+        $this->log($level, $full_message, $context);
+
+        return $this;
+    }
 }
