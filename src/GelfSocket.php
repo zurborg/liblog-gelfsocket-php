@@ -385,6 +385,7 @@ class GelfSocket extends \Psr\Log\AbstractLogger
         }
 
         $context = array_merge($this->defaults, $context);
+        $extras = [];
 
         if (strstr($message, "\n")) {
             list($short_message, $long_message) = explode("\n", $message, 2);
@@ -410,6 +411,7 @@ class GelfSocket extends \Psr\Log\AbstractLogger
 
         return array_merge(
             self::flatten($context),
+            $extras,
             [
                 'host'      => $this->hostname,
                 'timestamp' => sprintf('%0.06f', $now),
