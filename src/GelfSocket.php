@@ -387,10 +387,9 @@ class GelfSocket extends \Psr\Log\AbstractLogger
         $context = array_merge($this->defaults, $context);
         $extras = [];
 
-        if (strstr($message, "\n")) {
-            list($short_message, $long_message) = explode("\n", $message, 2);
-            $extras['full_message'] = trim($long_message);
-            $message                = trim($short_message);
+        if ($match = Str::match($message, '/^([^\n]+)\n+(.+)$/s')) {
+            $message                = trim($match[1]);
+            $extras['full_message'] = trim($match[2]);
         }
 
         self::setIf($context, 'time_offset', sprintf('%0.06f', $offset));
