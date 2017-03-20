@@ -1,0 +1,6 @@
+.*
+*~
+*.out
+composer.phar
+composer.lock
+vendor

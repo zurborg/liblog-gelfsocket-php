@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 7.0
+
+install:
+  - composer --prefer-dist install
+
+script:
+  - ./phpcs --warning-severity=0 --standard=PSR2 src
+  - ./phpunit tests

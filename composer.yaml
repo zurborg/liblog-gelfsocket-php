@@ -1,0 +1,44 @@
+---
+type: library
+name: zurborg/log-gelfsocket
+
+description: Log GELF messages via unix domain socket
+homepage: https://github.com/zurborg/liblog-gelfsocket-php
+license: ISC
+keywords:
+  - log
+  - logging
+  - graylog
+  - gelf
+
+authors:
+  - name: David Zurborg
+    email: zurborg@cpan.org
+    homepage: https://zurborg.github.io/
+
+require:
+  php: '~7'
+  zurborg/pirate-hooray: '~1.3'
+
+require-dev:
+  phpunit/phpunit: '~5'
+  evert/phpdoc-md: '~0'
+  phpdocumentor/phpdocumentor: '~2'
+  squizlabs/php_codesniffer: '~2'
+
+minimum-stability: stable
+
+autoload:
+  psr-4:
+    Log\: src/
+
+archive:
+  exclude:
+    - '.*'
+    - '*~'
+    - vendor/
+    - docs/
+    - Makefile
+    - composer.lock
+    - composer.phar
+    - composer.yaml
