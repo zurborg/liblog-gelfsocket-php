@@ -233,3 +233,64 @@ and they will be only filled if the corresponding variables are available. In a 
 * $context **array** - &lt;p&gt;Additional information about the logged message&lt;/p&gt;
 
 
+
+### logException
+
+    \Log\GelfSocket Log\GelfSocket::logException(string $level, \Exception $exception, array $context)
+
+Log an exception
+
+```php
+try {
+  // do something that throws
+} catch (\Exception $e) {
+  $logger->logException($e);
+}
+```
+
+The full log message contains of the exception message and the stack trace as string
+
+The log fields contains of:
+- `class` The class name of the exception, whereas `\` is replaced by dots and the keyword `Exception` at the end is replaced by `~`
+- `code` The code of the exception
+- `file` The filename
+- `line` The line number
+
+* Visibility: **public**
+
+
+#### Arguments
+* $level **string**
+* $exception **Exception**
+* $context **array** - &lt;p&gt;Additional params&lt;/p&gt;
+
+
+
+### setExceptionHandler
+
+    \Log\GelfSocket Log\GelfSocket::setExceptionHandler()
+
+Install an exception handler
+
+
+
+* Visibility: **public**
+
+
+
+
+### setErrorHandler
+
+    \Log\GelfSocket Log\GelfSocket::setErrorHandler($mask)
+
+Install an error handler
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $mask **mixed** - &lt;p&gt;Bitmask of errors to be handled.&lt;/p&gt;
+
+
