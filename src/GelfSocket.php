@@ -534,4 +534,63 @@ class GelfSocket extends \Psr\Log\AbstractLogger
 
         return $this;
     }
+
+    /**
+     * Install an exception handler
+     *
+     * @see \set_exception_handler
+     * @return self
+     */
+    public function setExceptionHandler()
+    {
+        $self = $this;
+        \set_exception_handler(function (\Exception $e) use ($self) {
+            $self->logException($e);
+            $self->flush();
+        });
+        return $this;
+    }
+
+    /**
+     * Install an error handler
+     *
+     * @see \set_error_handler
+     * @param $mask Bitmask of errors to be handled.
+     * @return self
+     */
+    public function setErrorHandler($mask = E_ALL)
+    {
+        $self = $this;
+        \set_error_handler(function (int $code, string $msg, string $file = null, int $line = null) use ($self) {
+            $map = [
+                E_COMPILE_ERROR     => 'fatal',
+                E_PARSE             => 'fatal',
+
+                E_CORE_ERROR        => 'alert',
+
+                E_ERROR             => 'critical',
+                E_RECOVERABLE_ERROR => 'critical',
+
+                E_USER_ERROR        => 'error',
+
+                E_WARNING           => 'warning',
+                E_COMPILE_WARNING   => 'warning',
+                E_DEPRECATED        => 'warning',
+                E_USER_WARNING      => 'warning',
+
+                E_USER_DEPRECATED   => 'notice',
+                E_USER_NOTICE       => 'notice',
+                E_NOTICE            => 'notice',
+
+                E_STRICT            => 'info',
+            ];
+            $level = Arr::get($map, $code, 'info');
+            $self->log($level, $msg, [
+                'file'  => $file,
+                'line'  => $line,
+            ]);
+            return true;
+        }, $mask);
+        return $this;
+    }
 }
