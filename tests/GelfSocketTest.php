@@ -137,6 +137,15 @@ class GelfSocketTest extends PHPUnit_Framework_TestCase
         $this->assertSame(null, $this->readMsg());
     }
 
+    public function test008()
+    {
+        $logger = $this->getLogger();
+        $logger->log('info', "1\n2\n3\n4");
+        $gelf = $this->readMsg();
+        $this->assertSame('1', Arr::get($gelf, 'message'));
+        $this->assertSame("2\n3\n4", Arr::get($gelf, 'full_message'));
+    }
+
     public function test009()
     {
         $logger = $this->getLogger();
