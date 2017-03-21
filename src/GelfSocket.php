@@ -541,7 +541,7 @@ class GelfSocket extends \Psr\Log\AbstractLogger
      * @see \set_exception_handler
      * @return self
      */
-    public function setExceptionHandler()
+    public function installExceptionHandler()
     {
         $self = $this;
         \set_exception_handler(function (\Exception $e) use ($self) {
@@ -558,7 +558,7 @@ class GelfSocket extends \Psr\Log\AbstractLogger
      * @param $mask Bitmask of errors to be handled.
      * @return self
      */
-    public function setErrorHandler($mask = E_ALL)
+    public function installErrorHandler($mask = E_ALL)
     {
         $self = $this;
         \set_error_handler(function (int $code, string $msg, string $file = null, int $line = null) use ($self) {

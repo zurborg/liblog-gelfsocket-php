@@ -266,9 +266,9 @@ The log fields contains of:
 
 
 
-### setExceptionHandler
+### installExceptionHandler
 
-    \Log\GelfSocket Log\GelfSocket::setExceptionHandler()
+    \Log\GelfSocket Log\GelfSocket::installExceptionHandler()
 
 Install an exception handler
 
@@ -279,9 +279,9 @@ Install an exception handler
 
 
 
-### setErrorHandler
+### installErrorHandler
 
-    \Log\GelfSocket Log\GelfSocket::setErrorHandler($mask)
+    \Log\GelfSocket Log\GelfSocket::installErrorHandler($mask)
 
 Install an error handler
 
