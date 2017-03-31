@@ -19,6 +19,7 @@ authors:
 require:
   php: '~7'
   zurborg/pirate-hooray: '~1.3'
+  zurborg/wrap-json: '~1.0'
 
 require-dev:
   phpunit/phpunit: '~5'

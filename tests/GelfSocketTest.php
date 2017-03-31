@@ -2,6 +2,7 @@
 
 use \Log\GelfSocket;
 use \Pirate\Hooray\Arr;
+use \Wrap\JSON;
 
 class GelfSocketTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +19,7 @@ class GelfSocketTest extends PHPUnit_Framework_TestCase
         $msg = "";
         socket_recv($this->listener, $msg, 65536, MSG_DONTWAIT);
         if (is_null($msg)) return null;
-        return json_decode($msg, true);
+        return JSON::decodeArray($msg);
     }
 
     private function getLogger()

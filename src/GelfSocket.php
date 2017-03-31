@@ -11,6 +11,7 @@ namespace Log;
 
 use \Pirate\Hooray\Str;
 use \Pirate\Hooray\Arr;
+use \Wrap\JSON;
 
 class GelfSocket extends \Psr\Log\AbstractLogger
 {
@@ -470,10 +471,7 @@ class GelfSocket extends \Psr\Log\AbstractLogger
     {
         $gelf = $this->prepare("$level", "$message", $context);
 
-        $json = \json_encode($gelf);
-        if (\json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception(\json_last_error_msg(), \json_last_error());
-        }
+        $json = JSON::encode($gelf);
 
         $length = strlen($json);
         if (strlen($json) > self::MAX_LENGTH) {
