@@ -492,13 +492,13 @@ class GelfSocket extends \Psr\Log\AbstractLogger
     }
 
     /**
-     * Log an exception
+     * Log a throwable object (an exception for example)
      *
      * ```php
      * try {
      *   // do something that throws
      * } catch (\Exception $e) {
-     *   $logger->logException($e);
+     *   $logger->logThrowable($e);
      * }
      * ```
      *
@@ -511,11 +511,11 @@ class GelfSocket extends \Psr\Log\AbstractLogger
      * - `line` The line number
      *
      * @param string $level
-     * @param \Exception $exception
+     * @param \Throwable $exception
      * @param array $context Additional params
      * @return self
      */
-    public function logException(string $level, \Exception $exception, array $context = [])
+    public function logThrowable(string $level, \Throwable $exception, array $context = [])
     {
         $class = get_class($exception);
         Str::replace($class, '/(?<=\w)Exception/', '~');
@@ -531,6 +531,22 @@ class GelfSocket extends \Psr\Log\AbstractLogger
         $this->log($level, $full_message, $context);
 
         return $this;
+    }
+
+    /**
+     * Backward compatible wrapper for logThrowable()
+     *
+     * @see self::logThrowable()
+     * @param string $level
+     * @param \Throwable $exception
+     * @param array $context Additional params
+     * @return self
+     *
+     * @deprecated use logThrowable() instead
+     */
+    public function logException(string $level, \Exception $exception, array $context = [])
+    {
+        return $this->logThrowable($level, $exception, $context);
     }
 
     /**

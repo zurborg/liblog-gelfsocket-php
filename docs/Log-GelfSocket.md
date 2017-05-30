@@ -234,17 +234,17 @@ and they will be only filled if the corresponding variables are available. In a 
 
 
 
-### logException
+### logThrowable
 
-    \Log\GelfSocket Log\GelfSocket::logException(string $level, \Exception $exception, array $context)
+    \Log\GelfSocket Log\GelfSocket::logThrowable(string $level, \Throwable $exception, array $context)
 
-Log an exception
+Log a throwable object (an exception for example)
 
 ```php
 try {
   // do something that throws
 } catch (\Exception $e) {
-  $logger->logException($e);
+  $logger->logThrowable($e);
 }
 ```
 
@@ -261,7 +261,25 @@ The log fields contains of:
 
 #### Arguments
 * $level **string**
-* $exception **Exception**
+* $exception **Throwable**
+* $context **array** - &lt;p&gt;Additional params&lt;/p&gt;
+
+
+
+### logException
+
+    \Log\GelfSocket Log\GelfSocket::logException(string $level, \Throwable $exception, array $context)
+
+Backward compatible wrapper for logThrowable()
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $level **string**
+* $exception **Throwable**
 * $context **array** - &lt;p&gt;Additional params&lt;/p&gt;
 
 
