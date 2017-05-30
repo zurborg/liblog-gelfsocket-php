@@ -2,10 +2,10 @@ language: php
 
 php:
   - 7.0
+  - 7.1
 
 install:
-  - composer --prefer-dist install
+  - make vendor
 
 script:
-  - ./phpcs --warning-severity=0 --standard=PSR2 src
-  - ./phpunit tests
+  - make test
