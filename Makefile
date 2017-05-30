@@ -27,7 +27,7 @@ clean:
 	git clean -xdf -e composer.phar -e vendor
 
 vendor:
-	$(composer) --prefer-dist install >composer.out
+	$(composer) --prefer-dist install
 
 composer.json: composer.yaml
 	$(yaml2json) < $< > $@~
