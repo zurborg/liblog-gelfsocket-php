@@ -26,7 +26,7 @@ docs:
 clean:
 	git clean -xdf -e composer.phar -e vendor
 
-vendor: composer.json
+vendor:
 	$(composer) --prefer-dist install >composer.out
 
 composer.json: composer.yaml
