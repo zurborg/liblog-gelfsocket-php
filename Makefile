@@ -5,7 +5,7 @@ phpcs=$(php) vendor/bin/phpcs
 phpunit=$(php) vendor/bin/phpunit
 phpdoc=$(php) vendor/bin/phpdoc
 phpdocmd=$(php) vendor/bin/phpdocmd
-yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
+yaml2json=$(perl) -MJSON -MYAML -eprint -e'to_json(YAML::Load(join""=><>),{canonical=>1,pretty=>1})'
 getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
 
 all: | vendor test docs
