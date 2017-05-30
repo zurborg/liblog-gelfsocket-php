@@ -37,6 +37,7 @@ composer.json: composer.yaml
 
 test: lint
 	$(phpcs) --warning-severity=0 --standard=PSR2 src
+	-rm test.sock
 	$(phpunit) --verbose tests/
 
 lint:
