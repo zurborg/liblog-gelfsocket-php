@@ -558,8 +558,8 @@ class GelfSocket extends \Psr\Log\AbstractLogger
     public function installExceptionHandler()
     {
         $self = $this;
-        \set_exception_handler(function (\Exception $e) use ($self) {
-            $self->logException($e);
+        \set_exception_handler(function (\Throwable $e) use ($self) {
+            $self->logThrowable($e);
             $self->flush();
         });
         return $this;
