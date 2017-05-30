@@ -7,7 +7,6 @@ phpdoc=$(php) vendor/bin/phpdoc
 phpdocmd=$(php) vendor/bin/phpdocmd
 yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
 getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
-V=`$(getversion) < composer.yaml`
 
 all: | vendor test docs
 
@@ -43,12 +42,4 @@ test: lint
 lint:
 	for file in `find src tests -name '*.php' | sort`; do $(php) -l $$file || exit 1; done
 
-archive: | clean composer.json
-	$(composer) archive
-
-release:
-	git push --all
-	git tag -m "Release version $V" -s v$V
-	git push --tags
-
-.PHONY: all info docs clean test archive release
+.PHONY: all info docs clean test
