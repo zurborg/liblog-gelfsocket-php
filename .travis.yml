@@ -5,7 +5,7 @@ php:
   - 7.1
 
 install:
-  - make vendor
+  - make vendor composer=composer
 
 script:
   - make test
