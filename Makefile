@@ -1,10 +1,10 @@
 php=php
 perl=perl
 composer=$(php) composer.phar
-phpcs=$(php) vendor/squizlabs/php_codesniffer/scripts/phpcs
-phpunit=$(php) vendor/phpunit/phpunit/phpunit
-phpdoc=$(php) vendor/phpdocumentor/phpdocumentor/bin/phpdoc
-phpdocmd=$(php) vendor/evert/phpdoc-md/bin/phpdocmd
+phpcs=$(php) vendor/bin/phpcs
+phpunit=$(php) vendor/bin/phpunit
+phpdoc=$(php) vendor/bin/phpdoc
+phpdocmd=$(php) vendor/bin/phpdocmd
 yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
 getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
 V=`$(getversion) < composer.yaml`
